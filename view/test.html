@@ -12,8 +12,8 @@ ${demo.css}
 		<script type="text/javascript">
 $(function () {
 
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
-    //$.getJSON('c:\\Andrew\\python\\ironside\\output.json', function (data) {
+    //$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+    $.getJSON('apple_stock.json&callback=?', function (data) {
         // Create the chart
         $('#container').highcharts('StockChart', {
 
