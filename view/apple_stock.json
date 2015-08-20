@@ -1,4 +1,4 @@
-?(/* AAPL historical OHLC data from the Google Finance API */
+{(/* AAPL historical OHLC data from the Google Finance API */
 [
 /* Aug 2008 */
 [1219190400000,25.12],
@@ -1846,4 +1846,4 @@
 [1439769600000,117.16],
 [1439856000000,116.50],
 [1439942400000,115.01]
-]);
+])}

@@ -11,9 +11,10 @@ ${demo.css}
 		</style>
 		<script type="text/javascript">
 $(function () {
-
+    
     //$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
-    $.getJSON('apple_stock.json&callback=?', function (data) {
+    $.getJSON('output2.json', function (data) {  
+        console.log(data);
         // Create the chart
         $('#container').highcharts('StockChart', {
 
@@ -23,7 +24,7 @@ $(function () {
             },
 
             title : {
-                text : 'AAPL Stock Price'
+                text : 'AAPL Stock Pricesssss'
             },
 
             series : [{
@@ -42,7 +43,9 @@ $(function () {
 	</head>
 	<body>
 <script src="Highstock-2.1.7/js/highstock.js"></script>
-<script src="Highstock-2.1.7js/modules/exporting.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/modules/data.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/modules/data.js"></script>
+<script src="Highstock-2.1.7/js/modules/exporting.js"></script>
 
 <div id="container" style="height: 400px; min-width: 310px"></div>
 	</body>
