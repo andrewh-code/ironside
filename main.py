@@ -37,7 +37,9 @@ def get_historical_opening(company, start_date, end_date):
             results    -- dictionary object ['Date': 'opening']
     """
     # check to see if arguments put in are not empty
-    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+    if ((company is None) or (len(str(company)) == 0) or 
+        (start_date is None) or (len(str(start_date)) == 0) or 
+        (end_date is None) or (len(str(end_date)) == 0)):
         print "Error: One of the arguments being passed in is empty. Please check the input again."
         sys.exit(1);
     
@@ -63,7 +65,9 @@ def get_historical_closing(company, start_date, end_date):
             results    -- dictionary object ['Date': 'closing']
     """
     # check to see if arguments put in are not empty
-    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+    if ((company is None) or (len(str(company)) == 0) or 
+        (start_date is None) or (len(str(start_date)) == 0) or 
+        (end_date is None) or (len(str(end_date)) == 0)):
         print "Error: One of the arguments being passed in is empty. Please check the input again."
         sys.exit(1);
     
@@ -89,13 +93,14 @@ def get_historical_adjusted_closing(company, start_date, end_date):
              results    -- dictionary object ['Date': 'adjusted closing']
     """
     # check to see if arguments put in are not empty
-    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+    if ((company is None) or (len(str(company)) == 0) or 
+        (start_date is None) or (len(str(start_date)) == 0) or 
+        (end_date is None) or (len(str(end_date)) == 0)):
         print "Error: One of the arguments being passed in is empty. Please check the input again."
         sys.exit(1);
     
     # declare variables/objects
     stock_results_dict = {}
-    
     
     historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
     
@@ -104,6 +109,19 @@ def get_historical_adjusted_closing(company, start_date, end_date):
         stock_results_dict[key_date] = historical_info[key_date]['Adj Close']
 
     return stock_results_dict
+
+# function over loading if possible (with 2 dates)
+def get_50_day_moving_average(company, start_date, end_date): 
+    """ Description: Retrieves the 50 day moving average of the stock
+        Keyword arguments:
+            company     -- company symbole (string)
+            start date  -- (string: YYYY-mm-dd) 
+            end date    -- (string: YYYY-mm-dd)
+        Output: 
+             results    -- 
+    """
+    
+    return ystockquote.get_50day_moving_avg(company)
 
 def main():
 
@@ -128,7 +146,7 @@ def main():
         
     json_file_out.close()
     
-    pprint(results_dict)
+    pprint(get_50_day_moving_average(company, start_date, end_date))
     
 # run main
 if __name__ == "__main__":
