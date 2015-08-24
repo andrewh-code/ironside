@@ -3,7 +3,7 @@ import os
 import sys
 import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
 from yahoo_finance import Share
-import pprint
+from pprint import pprint
 import json
 import time
 
@@ -19,11 +19,91 @@ def convert_to_epoch(date):
 def check_and_del_previous_json(file_name):
         # delete file
         file_name2 = os.getcwd() + '\\' + file_name
-        if (os.remove(file_name2)):
+        print file_name2
+        
+        if (os.path.isfile(file_name2)):
+            os.remove(file_name2)
             print "successfully deleted file: ", file_name2
         else:
-            print file_name2, "not deleted successfully"
+            print "unable to find file: ", file_name2
 
+def get_historical_opening(company, start_date, end_date):
+    """ Description: Retrieves the historical opening prices of the company
+        Keyword arguments:
+            company    -- company symbol (string) 
+            start date -- (string: YYYY-mm-dd) 
+            end date   -- (string: YYYY-mm-dd)
+        Output: 
+            results    -- dictionary object ['Date': 'opening']
+    """
+    # check to see if arguments put in are not empty
+    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+        print "Error: One of the arguments being passed in is empty. Please check the input again."
+        sys.exit(1);
+    
+    # declare variables/objects
+    stock_results_dict = {}
+    
+    
+    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    
+    # get the historical openings using date as the key
+    for key_date in historical_info:
+        stock_results_dict[key_date] = historical_info[key_date]['Open']
+
+    return stock_results_dict
+
+def get_historical_closing(company, start_date, end_date):
+    """ Description: Retrieves the historical closing prices of the company
+        Keyword arguments:
+            company    -- company symbol (string) 
+            start date -- (string: YYYY-mm-dd) 
+            end date   -- (string: YYYY-mm-dd)
+        Output: 
+            results    -- dictionary object ['Date': 'closing']
+    """
+    # check to see if arguments put in are not empty
+    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+        print "Error: One of the arguments being passed in is empty. Please check the input again."
+        sys.exit(1);
+    
+    # declare variables/objects
+    stock_results_dict = {}
+    
+    
+    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    
+    # get the historical openings using date as the key
+    for key_date in historical_info:
+        stock_results_dict[key_date] = historical_info[key_date]['Close']
+
+    return stock_results_dict
+
+def get_historical_adjusted_closing(company, start_date, end_date):
+    """ Description: Retrieves the historical adjusted closing prices of the company
+        Keyword arguments:
+            company    -- company symbol (string) 
+            start date -- (string: YYYY-mm-dd) 
+            end date   -- (string: YYYY-mm-dd)
+        Output: 
+             results    -- dictionary object ['Date': 'adjusted closing']
+    """
+    # check to see if arguments put in are not empty
+    if ((company is None) or (len(str(company)) == 0) or (start_date is None) or (len(str(start_date)) == 0) or (end_date is None) or (len(str(end_date)) == 0)):
+        print "Error: One of the arguments being passed in is empty. Please check the input again."
+        sys.exit(1);
+    
+    # declare variables/objects
+    stock_results_dict = {}
+    
+    
+    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    
+    # get the historical openings using date as the key
+    for key_date in historical_info:
+        stock_results_dict[key_date] = historical_info[key_date]['Adj Close']
+
+    return stock_results_dict
 
 def main():
 
@@ -31,39 +111,24 @@ def main():
     company     = 'GOOG'
     start_date  = '2015-01-01'
     end_date    = '2015-08-10'
-    stock_results_dict = {}
+    results_dict = {}
     eopch_date = ''
     stock       = ystockquote.get_historical_prices(company, start_date, end_date)
     json_file_out = 'output.json' 
     
-    #print stock.get_open()
-    #print stock.get_price()
-    #print stock.get_trade_datetime()
-    '''
-    for keys, values in stock.items():
-        print(keys)
-        print(values)
-    '''     
-    for stock_key in stock:
-        epoch_date = convert_to_epoch(stock_key)
-        #print stock_key, epoch_date
-        #print stock[stock_key]['Close']
-        
-        #for value in stock[key]:
-            #print value, ':', stock[key][value]
-            #print stock[key]['Close']
-        
-        # pick values from dictionary and input them into a new dictionary
-        stock_results_dict[epoch_date] = stock[stock_key]['Close']   
-
     #print "output results\n", stock_results_dict
     
     check_and_del_previous_json(json_file_out)
+    
+    results_dict = get_historical_adjusted_closing(company, start_date, end_date)
+    
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
-        json.dump(stock_results_dict, json_file_out)
+        json.dump(results_dict, json_file_out)
         
     json_file_out.close()
+    
+    pprint(results_dict)
     
 # run main
 if __name__ == "__main__":
