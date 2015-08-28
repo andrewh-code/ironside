@@ -1,12 +1,14 @@
 # include python packages/libraries
 import os
 import sys
-import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
-from yahoo_finance import Share
+#from yahoo_finance import Share
 from pprint import pprint
 import json
 import time
-
+import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
+import libraries.ystockquote2
+from libraries.yahoo_finance_lib import Share
+import libraries.yql
 
 def convert_to_epoch(date):
     pattern = '%Y-%m-%d'
@@ -123,6 +125,47 @@ def get_50_day_moving_average(company, start_date, end_date):
     
     return ystockquote.get_50day_moving_avg(company)
 
+
+
+'''
+def get_historical_prices(symbol, start_date, end_date):
+    """
+    Get historical prices for the given ticker symbol.
+    Date format is 'YYYY-MM-DD'
+
+    Returns a nested dictionary (dict of dicts).
+    outer dict keys are dates ('YYYY-MM-DD')
+    """
+    params = urlencode({
+        's': symbol,
+        'a': int(start_date[5:7]) - 1,
+        'b': int(start_date[8:10]),
+        'c': int(start_date[0:4]),
+        'd': int(end_date[5:7]) - 1,
+        'e': int(end_date[8:10]),
+        'f': int(end_date[0:4]),
+        'g': 'd',
+        'ignore': '.csv',
+    })
+    url = 'http://ichart.yahoo.com/table.csv?%s' % params
+    req = Request(url)
+    resp = urlopen(req)
+    content = str(resp.read().decode('utf-8').strip())
+    daily_data = content.splitlines()
+    hist_dict = dict()
+    keys = daily_data[0].split(',')
+    for day in daily_data[1:]:
+        day_data = day.split(',')
+        date = day_data[0]
+        hist_dict[date] = \
+            {keys[1]: day_data[1],
+             keys[2]: day_data[2],
+             keys[3]: day_data[3],
+             keys[4]: day_data[4],
+             keys[5]: day_data[5],
+             keys[6]: day_data[6]}
+    return hist_dict
+'''
 def main():
 
     #variables
@@ -148,6 +191,8 @@ def main():
     
     pprint(get_50_day_moving_average(company, start_date, end_date))
     
+    stock = Share('GOOG')
+    print stock.get_open()
 # run main
 if __name__ == "__main__":
     main()
