@@ -1,0 +1,9 @@
+1. Calculate the 50/200 day moving average
+- doesn't seem like you can get historical moving averag data (or any other data other than open, close, high, low, adj close)
+- YQL vs. CSV (better to use YQL)
+
+- retrieve the historical data from YQL
+- based on the start date and the end date
+- retrieve the adjusted closing data
+- calculate the moving average (50 and 200). Use numpy python library for mathematical computations.
+- output the array/list 
