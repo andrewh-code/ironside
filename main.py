@@ -1,6 +1,7 @@
 # include python packages/libraries
 import os
 import sys
+import numpy
 from datetime import datetime
 from pprint import pprint
 import json
@@ -22,7 +23,7 @@ def check_diff_in_days(start_date, end_date, diff):
     start_date_object = ""
     end_date_object = ""
     
-    if (!diff.isdigit())
+    if (diff.isdigit() == False):
         print "Error: Please input a number as the third parameter"
         return False
         
@@ -140,6 +141,25 @@ def get_historical_adjusted_closing(company, start_date, end_date):
 
     return stock_results_dict
 
+def moving_average(x, n, type='simple'):
+    """ Description: Calculate the moving average"
+    """
+    
+    x = numpy.asarray(x)
+    if type=='simple':
+        weights = numpy.ones(n)
+    else:
+        weights = numpy.exp(numpy.linspace(-1., 0., n))
+
+    weights /= weights.sum()
+
+
+    a =  numpy.convolve(x, weights, mode='full')[:len(x)]
+    a[:n] = a[n]
+    
+    return a
+    
+
 # function over loading if possible (with 2 dates)
 def get_50_day_moving_average(company, start_date, end_date): 
     """ Description: Retrieves the 50 day moving average of the stock
@@ -150,61 +170,27 @@ def get_50_day_moving_average(company, start_date, end_date):
         Output: 
              results    -- 
     """
+    # declare variables
+    stock = Share(company)
+    stock_results_dict = {}
     
-    
-    
+    for record in historical_info:
+        for key_date in record:
+            if (key_date == 'Date'):
+                stock_results_dict[record[key_date]] = record['Adj_Close']
 
 
-
-'''
-def get_historical_prices(symbol, start_date, end_date):
-    """
-    Get historical prices for the given ticker symbol.
-    Date format is 'YYYY-MM-DD'
-
-    Returns a nested dictionary (dict of dicts).
-    outer dict keys are dates ('YYYY-MM-DD')
-    """
-    params = urlencode({
-        's': symbol,
-        'a': int(start_date[5:7]) - 1,
-        'b': int(start_date[8:10]),
-        'c': int(start_date[0:4]),
-        'd': int(end_date[5:7]) - 1,
-        'e': int(end_date[8:10]),
-        'f': int(end_date[0:4]),
-        'g': 'd',
-        'ignore': '.csv',
-    })
-    url = 'http://ichart.yahoo.com/table.csv?%s' % params
-    req = Request(url)
-    resp = urlopen(req)
-    content = str(resp.read().decode('utf-8').strip())
-    daily_data = content.splitlines()
-    hist_dict = dict()
-    keys = daily_data[0].split(',')
-    for day in daily_data[1:]:
-        day_data = day.split(',')
-        date = day_data[0]
-        hist_dict[date] = \
-            {keys[1]: day_data[1],
-             keys[2]: day_data[2],
-             keys[3]: day_data[3],
-             keys[4]: day_data[4],
-             keys[5]: day_data[5],
-             keys[6]: day_data[6]}
-    return hist_dict
-'''
 def main():
 
     #variables
     company     = 'GOOG'
     start_date  = '2015-01-01'
-    end_date    = '2015-01-10'
+    end_date    = '2015-08-31'
     results_dict = {}
     eopch_date = ''
     #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
     json_file_out = 'output.json' 
+    temp_list = []
     
     #print "output results\n", stock_results_dict
     
@@ -218,7 +204,14 @@ def main():
         
     json_file_out.close()
     
-    print check_diff_in_days(start_date, end_date, 50)
+    # get 50 day moving average
+    for key in results_dict:
+        temp_list.append(float(results_dict[key]))
+        
+    ma50 = moving_average(temp_list, 20, type='exponential')
+    print ma50
+    print Share('GOOG').get_50day_moving_avg()
+    #print temp_list
     
 # run main
 if __name__ == "__main__":
