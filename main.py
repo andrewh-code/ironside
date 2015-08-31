@@ -8,7 +8,7 @@ import time
 import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
 import libraries.ystockquote2
 from libraries.yahoo_finance_lib import Share
-import libraries.yql
+import libraries.yql as yql
 
 def convert_to_epoch(date):
     pattern = '%Y-%m-%d'
@@ -46,14 +46,16 @@ def get_historical_opening(company, start_date, end_date):
         sys.exit(1);
     
     # declare variables/objects
+    stock = Share(company)
     stock_results_dict = {}
     
-    
-    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    historical_info = stock.get_historical(start_date, end_date) 
     
     # get the historical openings using date as the key
-    for key_date in historical_info:
-        stock_results_dict[key_date] = historical_info[key_date]['Open']
+    for record in historical_info:
+        for key_date in record:
+            if (key_date == 'Date'):
+                stock_results_dict[record[key_date]] = record['Open']
 
     return stock_results_dict
 
@@ -74,14 +76,17 @@ def get_historical_closing(company, start_date, end_date):
         sys.exit(1);
     
     # declare variables/objects
+    stock = Share(company)
     stock_results_dict = {}
     
     
-    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    historical_info = stock.get_historical(start_date, end_date) 
     
     # get the historical openings using date as the key
-    for key_date in historical_info:
-        stock_results_dict[key_date] = historical_info[key_date]['Close']
+    for record in historical_info:
+        for key_date in record:
+            if (key_date == 'Date'):
+                stock_results_dict[record[key_date]] = record['Close']
 
     return stock_results_dict
 
@@ -102,13 +107,16 @@ def get_historical_adjusted_closing(company, start_date, end_date):
         sys.exit(1);
     
     # declare variables/objects
+    stock = Share(company)
     stock_results_dict = {}
     
-    historical_info = ystockquote.get_historical_prices(company, start_date, end_date) 
+    historical_info = stock.get_historical(start_date, end_date)
     
-    # get the historical openings using date as the key
-    for key_date in historical_info:
-        stock_results_dict[key_date] = historical_info[key_date]['Adj Close']
+     # get the historical openings using date as the key
+    for record in historical_info:
+        for key_date in record:
+            if (key_date == 'Date'):
+                stock_results_dict[record[key_date]] = record['Adj_Close']
 
     return stock_results_dict
 
@@ -123,7 +131,8 @@ def get_50_day_moving_average(company, start_date, end_date):
              results    -- 
     """
     
-    return ystockquote.get_50day_moving_avg(company)
+    
+    
 
 
 
@@ -171,10 +180,10 @@ def main():
     #variables
     company     = 'GOOG'
     start_date  = '2015-01-01'
-    end_date    = '2015-08-10'
+    end_date    = '2015-01-10'
     results_dict = {}
     eopch_date = ''
-    stock       = ystockquote.get_historical_prices(company, start_date, end_date)
+    #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
     json_file_out = 'output.json' 
     
     #print "output results\n", stock_results_dict
@@ -189,10 +198,13 @@ def main():
         
     json_file_out.close()
     
-    pprint(get_50_day_moving_average(company, start_date, end_date))
     
-    stock = Share('GOOG')
-    print stock.get_open()
+    
+    
+    
+    
+    
+    
 # run main
 if __name__ == "__main__":
     main()
