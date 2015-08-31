@@ -1,7 +1,7 @@
 # include python packages/libraries
 import os
 import sys
-#from yahoo_finance import Share
+from datetime import datetime
 from pprint import pprint
 import json
 import time
@@ -15,6 +15,26 @@ def convert_to_epoch(date):
     epoch = int(time.mktime(time.strptime(date, pattern)))
     
     return epoch
+
+def check_diff_in_days(start_date, end_date, diff):
+    
+    # declare variables
+    start_date_object = ""
+    end_date_object = ""
+    
+    if (!diff.isdigit())
+        print "Error: Please input a number as the third parameter"
+        return False
+        
+    # date has to be in the %Y-%m-%d format (because of yahoo query language output)
+    start_date_object = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date_object = datetime.strptime(end_date, '%Y-%m-%d')
+    
+    # difference is either 50 days or 200 days (depending on the output)
+    if (end_date_object - start_date_object == diff):
+        return True
+    else:
+        return False
 
 #def output_to_json_file(dictionary_object):
 
@@ -198,12 +218,7 @@ def main():
         
     json_file_out.close()
     
-    
-    
-    
-    
-    
-    
+    print check_diff_in_days(start_date, end_date, 50)
     
 # run main
 if __name__ == "__main__":
