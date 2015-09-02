@@ -173,19 +173,35 @@ def get_50_day_moving_average(company, start_date, end_date):
     # declare variables
     stock = Share(company)
     stock_results_dict = {}
+    stock_results_list = []
+    ma50_list = []
     
-    for record in historical_info:
-        for key_date in record:
-            if (key_date == 'Date'):
-                stock_results_dict[record[key_date]] = record['Adj_Close']
+    # get the data set to calculate the 50 day moving average
+    stock_results_dict = get_historical_adjusted_closing(company, start_date, end_date)
 
+    for key in sorted(stock_results_dict):
+        stock_results_list.append(float(stock_results_dict[key]))
+    
+    ma50_list = moving_average(stock_results_list, 50, type='simple')
+    # make sure the length of the dictionary is the same as the 50 day ma ma50_list
+    if (len(stock_results_dict) == len(ma50_list)):
+        count = 0
+
+        for key in sorted(stock_results_dict):
+            stock_results_dict[key] = ma50_list[count]
+            count = count + 1
+            #print key, stock_results_dict[key]
+    
+    return stock_results_dict
+    
+    
 
 def main():
 
     #variables
     company     = 'GOOG'
     start_date  = '2015-01-01'
-    end_date    = '2015-08-31'
+    end_date    = '2015-09-03'
     results_dict = {}
     eopch_date = ''
     #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
@@ -204,12 +220,12 @@ def main():
         
     json_file_out.close()
     
-    # get 50 day moving average
-    for key in results_dict:
-        temp_list.append(float(results_dict[key]))
-        
-    ma50 = moving_average(temp_list, 20, type='exponential')
-    print ma50
+    
+    get_50_day_moving_average(company, start_date, end_date)
+    
+    #sma50 = moving_average(temp_list, 50, type='simple')
+    #ema50 = moving_average(temp_list, 50, type='exponential')
+    
     print Share('GOOG').get_50day_moving_avg()
     #print temp_list
     
