@@ -175,28 +175,33 @@ def get_50_day_moving_average(company, start_date, end_date):
     stock_results_dict = {}
     stock_results_list = []
     ma50_list = []
+    out = {}
     
     # get 50 days before for a base average
     # convert the previous 50 days back to the string format (TO DO: inefficient, change it)
-    previous_50_days = subtract_business_days(start_date, 50).strftime("%Y-%d-%m")
+    previous_50_days = subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
     # get the data set to calculate the 50 day moving average
-    stock_results_dict = get_historical_adjusted_closing(company, start_date, end_date)
+    stock_results_dict = get_historical_adjusted_closing(company, previous_50_days, end_date)
 
+    
     for key in sorted(stock_results_dict):
         stock_results_list.append(float(stock_results_dict[key]))
     
     ma50_list = moving_average(stock_results_list, 50, type='simple')
+ 
     # make sure the length of the dictionary is the same as the 50 day ma ma50_list
     if (len(stock_results_dict) == len(ma50_list)):
         count = 0
 
         for key in sorted(stock_results_dict):
-            stock_results_dict[key] = ma50_list[count]
+            key = str(key)
+            if (datetime.strptime(key, "%Y-%m-%d") >= datetime.strptime(start_date, "%Y-%m-%d")):
+                out[key] = ma50_list[count]
+                #print count, key, out[key]
             count = count + 1
-            print key, stock_results_dict[key]
     
-    return stock_results_dict
+        return out
     
 def subtract_business_days(start_date, num_days):
     """ Description: Subtracts number of business days from the start_date (or current date)
@@ -210,7 +215,9 @@ def subtract_business_days(start_date, num_days):
     decrement_day = num_days 
     current_date = datetime.strptime(start_date, '%Y-%m-%d') 
     
-    while (decrement_day > 0):
+    #print current_date
+    while (decrement_day > 1):
+        #print decrement_day, current_date
         current_date = current_date - timedelta(days=1)
         weekday = current_date.weekday()
         
@@ -218,14 +225,14 @@ def subtract_business_days(start_date, num_days):
             continue
 
         decrement_day = decrement_day - 1
-
+        
     return current_date
 
 def main():
 
     #variables
     company     = 'GOOG'
-    start_date  = '2015-01-31'
+    start_date  = '2015-01-01'
     end_date    = '2015-09-03'
     results_dict = {}
     eopch_date = ''
@@ -238,7 +245,7 @@ def main():
     
     check_and_del_previous_json(json_file_out)
     
-    results_dict = get_historical_adjusted_closing(company, start_date, end_date)
+    #results_dict = get_historical_adjusted_closing(company, start_date, end_date)
     
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
@@ -252,7 +259,7 @@ def main():
     print Share('GOOG').get_50day_moving_avg()
     #print temp_list
     
-    print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
+    #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
 # run main
 if __name__ == "__main__":
