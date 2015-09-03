@@ -2,7 +2,7 @@
 import os
 import sys
 import numpy
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from pprint import pprint
 import json
 import time
@@ -36,7 +36,7 @@ def check_diff_in_days(start_date, end_date, diff):
         return True
     else:
         return False
-
+ 
 #def output_to_json_file(dictionary_object):
 
 def check_and_del_previous_json(file_name):
@@ -160,7 +160,7 @@ def moving_average(x, n, type='simple'):
     return a
     
 
-# function over loading if possible (with 2 dates)
+# function over loading if possible (with 2 dates)?
 def get_50_day_moving_average(company, start_date, end_date): 
     """ Description: Retrieves the 50 day moving average of the stock
         Keyword arguments:
@@ -176,6 +176,10 @@ def get_50_day_moving_average(company, start_date, end_date):
     stock_results_list = []
     ma50_list = []
     
+    # get 50 days before for a base average
+    # convert the previous 50 days back to the string format (TO DO: inefficient, change it)
+    previous_50_days = subtract_business_days(start_date, 50).strftime("%Y-%d-%m")
+    
     # get the data set to calculate the 50 day moving average
     stock_results_dict = get_historical_adjusted_closing(company, start_date, end_date)
 
@@ -190,23 +194,45 @@ def get_50_day_moving_average(company, start_date, end_date):
         for key in sorted(stock_results_dict):
             stock_results_dict[key] = ma50_list[count]
             count = count + 1
-            #print key, stock_results_dict[key]
+            print key, stock_results_dict[key]
     
     return stock_results_dict
     
+def subtract_business_days(start_date, num_days):
+    """ Description: Subtracts number of business days from the start_date (or current date)
+        Keyword arguments:
+            start_date      -- (string: YYYY-mm-dd (more specifically: %Y-%m-%d))
+            num_days        -- int
+        Output:
+            current_date    -- 
+    """
     
+    decrement_day = num_days 
+    current_date = datetime.strptime(start_date, '%Y-%m-%d') 
+    
+    while (decrement_day > 0):
+        current_date = current_date - timedelta(days=1)
+        weekday = current_date.weekday()
+        
+        if (weekday >= 5):  # sunday = 6
+            continue
+
+        decrement_day = decrement_day - 1
+
+    return current_date
 
 def main():
 
     #variables
     company     = 'GOOG'
-    start_date  = '2015-01-01'
+    start_date  = '2015-01-31'
     end_date    = '2015-09-03'
     results_dict = {}
     eopch_date = ''
     #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
     json_file_out = 'output.json' 
     temp_list = []
+    temp_dt = datetime
     
     #print "output results\n", stock_results_dict
     
@@ -223,11 +249,10 @@ def main():
     
     get_50_day_moving_average(company, start_date, end_date)
     
-    #sma50 = moving_average(temp_list, 50, type='simple')
-    #ema50 = moving_average(temp_list, 50, type='exponential')
-    
     print Share('GOOG').get_50day_moving_avg()
     #print temp_list
+    
+    print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
 # run main
 if __name__ == "__main__":
