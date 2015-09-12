@@ -255,6 +255,9 @@ class Share(Base):
     def get_trade_datetime(self):
         return self.data_set['LastTradeDateTimeUTC']
 
+    def get_change_50_day(self):
+        return self.data_set['ChangeFromFiftydayMovingAverage']
+        
     def get_historical(self, start_date, end_date):
         """
         Get Yahoo Finance Stock historical prices

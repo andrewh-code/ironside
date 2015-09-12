@@ -153,12 +153,52 @@ def moving_average(x, n, type='simple'):
 
     weights /= weights.sum()
 
-
     a =  numpy.convolve(x, weights, mode='full')[:len(x)]
     a[:n] = a[n]
     
     return a
+
+def get_200_day_moving_average(company, start_date, end_date):
+    """ Description: Retrieves the 200 day moving average of the stock
+        Keyword arguments:
+            company     -- company symbole (string)
+            start date  -- (string: YYYY-mm-dd) 
+            end date    -- (string: YYYY-mm-dd)
+        Output: 
+             results    -- 
+    """
     
+    # declare variables
+    stock = Share(company)
+    stock_results_dict = {}
+    stock_results_list = []
+    ma200_list = []
+    out = {}
+    
+    # get 50 days before for a base average
+    # convert the previous 50 days back to the string format (TO DO: inefficient, change it)
+    previous_200_days = subtract_business_days(start_date, 200).strftime("%Y-%m-%d")
+    
+    # get the data set to calculate the 50 day moving average
+    stock_results_dict = get_historical_adjusted_closing(company, previous_200_days, end_date)
+
+    for key in sorted(stock_results_dict):
+        stock_results_list.append(float(stock_results_dict[key]))
+    
+    ma200_list = moving_average(stock_results_list, 200, type='simple')
+ 
+    # make sure the length of the dictionary is the same as the 200 day ma ma50_list
+    if (len(stock_results_dict) == len(ma200_list)):
+        count = 0
+
+        for key in sorted(stock_results_dict):
+            key = str(key)
+            if (datetime.strptime(key, "%Y-%m-%d") >= datetime.strptime(start_date, "%Y-%m-%d")):
+                out[key] = ma200_list[count]
+                print count, key, out[key]
+            count = count + 1
+    
+    return out
 
 # function over loading if possible (with 2 dates)?
 def get_50_day_moving_average(company, start_date, end_date): 
@@ -183,13 +223,12 @@ def get_50_day_moving_average(company, start_date, end_date):
     
     # get the data set to calculate the 50 day moving average
     stock_results_dict = get_historical_adjusted_closing(company, previous_50_days, end_date)
-
-    
+        
     for key in sorted(stock_results_dict):
         stock_results_list.append(float(stock_results_dict[key]))
-    
+
     ma50_list = moving_average(stock_results_list, 50, type='simple')
- 
+    
     # make sure the length of the dictionary is the same as the 50 day ma ma50_list
     if (len(stock_results_dict) == len(ma50_list)):
         count = 0
@@ -201,7 +240,7 @@ def get_50_day_moving_average(company, start_date, end_date):
                 #print count, key, out[key]
             count = count + 1
     
-        return out
+    return out
     
 def subtract_business_days(start_date, num_days):
     """ Description: Subtracts number of business days from the start_date (or current date)
@@ -216,7 +255,7 @@ def subtract_business_days(start_date, num_days):
     current_date = datetime.strptime(start_date, '%Y-%m-%d') 
     
     #print current_date
-    while (decrement_day > 1):
+    while (decrement_day > 0):
         #print decrement_day, current_date
         current_date = current_date - timedelta(days=1)
         weekday = current_date.weekday()
@@ -257,6 +296,9 @@ def main():
     get_50_day_moving_average(company, start_date, end_date)
     
     print Share('GOOG').get_50day_moving_avg()
+    print Share('GOOG').get_200day_moving_avg()
+    print Share('GOOG').get_change_50_day()
+    
     #print temp_list
     
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
