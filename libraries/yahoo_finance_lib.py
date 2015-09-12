@@ -208,81 +208,243 @@ class Share(Base):
 
     def get_change(self):
         return self.data_set['Change']                      #YQL: c1
+
+    # returns N/A
+    def get_comission(self):
+        return self.data_set['Comission']                   #YQL: c3 
+
+    def get_currency(self):
+        return self.data_set['Currency']                    #YQL: c4 
+    
+    # returns N/A
+    def get_change_real_time(self):
+        return self.data_set['ChangeRealtime']              #YQL: c6 
+            
+    def get_after_hours_change_real_time(self):
+        return self.data_set['AFterHoursChangeRealTime']    #YQL: c8 
+    
+    # returns N/A
+    def get_dividend_share(self):
+        return self.data_set['DividendShare']               #YQL: d 
+            
+    def get_last_trade_date(self):
+        return self.data_set['LastTradeDate']               #YQL: d1 
+    
+    def get_trade_date(self):
+        return self.data_set['TradeDate']                   #YQL: d2 
+            
+    def get_earnings_share(self):
+        return self.data_set['EarningsShare']               #YQL: e
+
+    # returns N/A
+    def get_(self):
+        return self.data_set['ErrorIndicationreturnedforsymbolchangedinvalid']                            #YQL: e1 
+            
+    def get_eps_estimate_current_year(self):
+        return self.data_set['EPSEstimateCurrentYear']      #YQL: e7 
+    
+    def get_eps_estimate_current_year(self):
+        return self.data_set['EPSEstimateNextYear']         #YQL: e8 
+    
+    def get_eps_estimate_current_year(self):
+        return self.data_set['EPSEstimateNextQuater']       #YQL: e9 
+    
+    def get_days_low(self):
+        return self.data_set['DaysLow']                     #YQL: g 
+    
+    def get_days_high(self):
+        return self.data_set['DaysHigh']                    #YQL: h 
+    
+    def get_year_low(self):
+        return self.data_set['YearLow']                     #YQL: j 
         
-    def get_ebitda(self):
-        return self.data_set['EBITDA']              #YQL: j4
-        
-    def get_price(self):
-        return self.data_set['LastTradePriceOnly']  #YQL: l1
+    def get_year_low(self):
+        return self.data_set['YearHigh']                    #YQL: k
+    
+    # returns N/A
+    def get_holdings_gain_percent():
+        return self.data_set['HoldingsGainpercent']        #YQL: g1 
+
+    # returns N/A
+    def get_annualized_gain():
+        return self.data_set['AnnualizedGain']             #YQL: g3 
+
+    # returns N/A
+    def get_holdings_gain():
+        return self.data_set['HoldingsGain']               #YQL: g4
+
+    # returns N/A
+    def get_holdings_gain_percent_real_time():
+        return self.data_set['HoldingsGainPercentRealtime']#YQL: g5 
+
+    # returns N/A
+    def get_holdings_gain_real_time():
+        return self.data_set['HoldingsGainRealtime']       #YQL: g6 
+
+    # returns N/A
+    def get_more_info():
+        return self.data_set['MoreInfo']                   #YQL: i 
+
+    # returns N/A
+    def get_order_book_real_time():
+        return self.data_set['OrderBookRealtime']          #YQL: i6 
 
     def get_market_cap(self):
-        return self.data_set['MarketCapitalization']    #YQL: j1
+        return self.data_set['MarketCapitalization']       #YQL: j1
         
-    def get_open(self):
-        return self.data_set['Open']    #YQL: o
-        
-    def get_prev_close(self):
-        return self.data_set['PreviousClose']   #YQL: p
+    def get_market_cap_real_time():
+        return self.data_set['MarketCapRealtime']          #YQL: j3 
 
+    def get_ebitda(self):
+        return self.data_set['EBITDA']                     #YQL: j4
+        
+    def get_change_from_year_low():
+        return self.data_set['ChangeFromYearLow']          #YQL: j5 
+
+    def get_percent_change_from_year_low():
+        return self.data_set['PercentChangeFromYearLow']   #YQL: j6 
+
+    # returns N/A
+    def get_last_trade_real_time_with_time():
+        return self.data_set['LastTradeRealtimeWithTime']  #YQL: k1 
+    
+    # returns N/A
+    def get_change_percent_real_time():
+        return self.data_set['ChangePercentRealtime']      #YQL: k2 
+
+    def get_change_from_year_high():
+        return self.data_set['ChangeFromYearHigh']         #YQL: k4 
+
+    def get_percent_change_from_year_high():
+        return self.data_set['PercentchangeFromYearHigh']  #YQL: k5 
+
+    def get_last_trade_with_time():
+        return self.data_set['LastTradeWithTime']          #YQL: l 
+        
+    def get_price(self):
+        return self.data_set['LastTradePriceOnly']          #YQL: l1
+
+    def get_high_limit(self):
+        return self.data_set['HighLimit']                   #YQL: l2 
+
+    def get_low_limit(self):
+        return self.data_set['LowLimit']                    #YQL: l3 
+            
+    def get_days_range(self):
+        return self.data_set['DaysRange']                   #YQL: m 
+            
+    def get_days_range_real_time(self):
+        return self.data_set['DaysRangeRealtime']           #YQL: m2 
+         
+    def get_50day_moving_avg(self):
+        return self.data_set['FiftydayMovingAverage']       #YQL: m3
+    
+    def get_200day_moving_avg(self):
+        return self.data_set['TwoHundreddayMovingAverage']  #YQL: m4
+          
+    def get_change_from_200_day_moving_avg(self):
+        return self.data_set['ChangeFromTwoHundreddayMovingAverage'] #YQL: m5
+
+    def get_percent_change_from_200_day_moving_avg(self):
+        return self.data_set['PercentChangeFromTwoHundreddayMovingAverage']      #YQL: m6 
+              
+    def get_change_from_50_day_moving_avg(self):
+        return self.data_set['ChangeFromFiftydayMovingAverage']     #YQL: m7
+        
+    def get_percent_change_from_50_day_moving_avg(self):
+        return self.data_set['PercentChangeFromFiftydayMovingAverage'] #YQL: m8 
+       
+    def get_company_name(self):
+        return self.data_set['Name']                         #YQL: n
+    
+    # returns N/A
+    def get_notes(self):
+        return self.data_set['Notes']                        #YQL: n4 
+                    
+    def get_open(self):
+        return self.data_set['Open']                        #YQL: o
+
+    def get_prev_close(self):
+        return self.data_set['PreviousClose']               #YQL: p
+                    
+    def get_price_paid(self):
+        return self.data_set['PricePaid']                   #YQL: p1
+            
+    def get_change_in_percent(self):
+        return self.data_set['ChangeinPercent']             #YQL: p2 
+            
+    def get_price_sales(self):
+        return self.data_set['PriceSales']                  #YQL: p5
+            
+    def get_price_book(self):
+        return self.data_set['PriceBook']                   #YQL: p6
+            
+    def get_ex_dividend_date(self):
+        return self.data_set['ExDividendDate']              #YQL: q
+           
+    def get_PERatio(self):
+        return self.data_set['PERatio']                     #YQL: r 
+            
+    def get_dividend_pay_date(self):
+        return self.data_set['DividendPayDate']             #YQL: r1
+            
+    def get_pe_ratio_real_time(self):
+        return self.data_set['PERatioRealtime']             #YQL: r2
+            
+    def get_peg_ratio(self):
+        return self.data_set['PEGRatio']                    #YQL: r5 
+            
+    def get_price_eps_estimate_current_year(self):
+        return self.data_set['PriceEPSEstimateCurrentYear'] #YQL: r6 
+            
+    def get_price_eps_estimate_next_year(self):
+        return self.data_set['PriceEPSEstimateNextYear']    #YQL: r7 
+            
+    def get_symbol(self):
+        return self.data_set['Symbol']                      #YQL: s 
+            
+    def get_shares_owned(self):
+        return self.data_set['SharesOwned']                 #YQL: s1 
+    
+    def get_short_ratio(self):
+        return self.data_set['ShortRatio']                  #YQL: s7
+        
+    def get_last_trade_time(self):
+        return self.data_set['LastTradeTime']               #YQL: t1 
+            
+    def get_ticker_trend(self):
+        return self.data_set['TickerTrend']                 #YQL: t7 
+            
+    def get_one_year_target_price(self):
+        return self.data_set['OneyrTargetPrice']            #YQL: t8
+            
+    def get_holdings_value(self):
+        return self.data_set['HoldingsValue']               #YQL: v1 
+
+    def get_holdinvs_value_real_time(self):
+        return self.data_set['HoldingsValuerealtime']       #YQL: v7
+    
+    def get_year_range(self):
+        return self.data_set['YearRange']                   #YQL: w
+    
+    def get_days_value_change(self):
+        return self.data_set['DaysValueChange']             #YQL: w1
+            
+    def get_days_value_change_real_time(self):
+        return self.data_set['DaysValueChangeRealtime']     #YQL: w4
+                        
     def get_stock_exchange(self):
         return self.data_set['StockExchange']   #YQL: x
         
     def get_volume(self):
-        return self.data_set['Volume']  #YQL: v
-
-    def get_dividend_share(self):
-        return self.data_set['DividendShare']
+        return self.data_set['Volume']          #YQL: v
 
     def get_dividend_yield(self):
-        return self.data_set['DividendYield']
-
-    def get_earnings_share(self):
-        return self.data_set['EarningsShare']
-
-    def get_days_high(self):
-        return self.data_set['DaysHigh']
-
-    def get_days_low(self):
-        return self.data_set['DaysLow']
-
-    def get_year_high(self):
-        return self.data_set['YearHigh']
-
-    def get_year_low(self):
-        return self.data_set['YearLow']
-
-    def get_50day_moving_avg(self):
-        return self.data_set['FiftydayMovingAverage']
-
-    def get_200day_moving_avg(self):
-        return self.data_set['TwoHundreddayMovingAverage']
-
-    def get_price_earnings_ratio(self):
-        return self.data_set['PERatio']
-
-    def get_price_earnings_growth_ratio(self):
-        return self.data_set['PEGRatio']
-
-    def get_price_sales(self):
-        return self.data_set['PriceSales']
-
-    def get_price_book(self):
-        return self.data_set['PriceBook']
-
-    def get_short_ratio(self):
-        return self.data_set['ShortRatio']
+        return self.data_set['DividendYield']   #YQL: y
 
     def get_trade_datetime(self):
         return self.data_set['LastTradeDateTimeUTC']
 
-    def get_change_from_50_day_moving_avg(self):
-        return self.data_set['ChangeFromFiftydayMovingAverage']
-        
-    def get_change_from_200_day_moving_avg(self):
-        return self.data_set['ChangeFromTwoHundreddayMovingAverage']
-    
-    def get_company_name(self):
-        return self.data_set['Name']
         
     def get_historical(self, start_date, end_date):
         """
