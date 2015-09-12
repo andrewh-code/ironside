@@ -255,8 +255,14 @@ class Share(Base):
     def get_trade_datetime(self):
         return self.data_set['LastTradeDateTimeUTC']
 
-    def get_change_50_day(self):
+    def get_change_from_50_day_moving_avg(self):
         return self.data_set['ChangeFromFiftydayMovingAverage']
+        
+    def get_change_from_200_day_moving_avg(self):
+        return self.data_set['ChangeFromTwoHundreddayMovingAverage']
+    
+    def get_company_name(self):
+        return self.data_set['Name']
         
     def get_historical(self, start_date, end_date):
         """

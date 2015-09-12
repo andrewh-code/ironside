@@ -295,9 +295,12 @@ def main():
     
     get_50_day_moving_average(company, start_date, end_date)
     
+    print Share('GOOG').get_company_name()
+    print Share('GOOG').get_prev_close()
     print Share('GOOG').get_50day_moving_avg()
     print Share('GOOG').get_200day_moving_avg()
-    print Share('GOOG').get_change_50_day()
+    print Share('GOOG').get_change_from_50_day_moving_avg()
+    print Share('GOOG').get_change_from_200_day_moving_avg()
     
     #print temp_list
     
