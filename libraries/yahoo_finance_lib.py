@@ -4,7 +4,9 @@ from datetime import datetime, timedelta
 import pytz
 
 __author__ = 'Lukasz Banasiak'
-__version__ = '1.1.4'
+__modified__ = 'Andrew Ho'
+__date_modified__ = 'September 12, 2015'
+__version__ = '1.1.4_ironside'
 __all__ = ['Currency', 'Share']
 
 def edt_to_utc(date, mask='%m/%d/%Y %I:%M%p'):
@@ -139,6 +141,7 @@ class Base(object):
         self.data_set = self._fetch()
 
 
+# Phase this out?
 class Currency(Base):
 
     def __init__(self, symbol):
@@ -180,35 +183,52 @@ class Share(Base):
             data[u'LastTradeDateTimeUTC'] = edt_to_utc('{0} {1}'.format(data['LastTradeDate'], data['LastTradeTime']))
         return data
 
-    def get_price(self):
-        return self.data_set['LastTradePriceOnly']
+    def get_ask(self):
+        return self.data_set['Ask']                         #YQL: a
+        
+    def get_avg_daily_volume(self):
+        return self.data_set['AverageDailyVolume']          #YQL: a2
+        
+    def get_bid(self):
+        return self.data_set['Bid']                         #YQL: b
+    
+    # returns N/A
+    def get_ask_real_time(self):
+        return self.data_set['AskRealtime']                 #YQL: b2
+    
+    # returns N/A
+    def get_bid_real_time(self):
+        return self.data_set['BidRealtime']                 #YQL: b3
+    
+    def get_book_value(self):
+        return self.data_set['BookValue']                   #YQL: b4
+    
+    def get_percent_change(self):
+        return self.data_set['Change&PercentChange']        #YQL: c
 
     def get_change(self):
-        return self.data_set['Change']
-
-    def get_volume(self):
-        return self.data_set['Volume']
-
-    def get_prev_close(self):
-        return self.data_set['PreviousClose']
-
-    def get_open(self):
-        return self.data_set['Open']
-
-    def get_avg_daily_volume(self):
-        return self.data_set['AverageDailyVolume']
-
-    def get_stock_exchange(self):
-        return self.data_set['StockExchange']
+        return self.data_set['Change']                      #YQL: c1
+        
+    def get_ebitda(self):
+        return self.data_set['EBITDA']              #YQL: j4
+        
+    def get_price(self):
+        return self.data_set['LastTradePriceOnly']  #YQL: l1
 
     def get_market_cap(self):
-        return self.data_set['MarketCapitalization']
+        return self.data_set['MarketCapitalization']    #YQL: j1
+        
+    def get_open(self):
+        return self.data_set['Open']    #YQL: o
+        
+    def get_prev_close(self):
+        return self.data_set['PreviousClose']   #YQL: p
 
-    def get_book_value(self):
-        return self.data_set['BookValue']
-
-    def get_ebitda(self):
-        return self.data_set['EBITDA']
+    def get_stock_exchange(self):
+        return self.data_set['StockExchange']   #YQL: x
+        
+    def get_volume(self):
+        return self.data_set['Volume']  #YQL: v
 
     def get_dividend_share(self):
         return self.data_set['DividendShare']
