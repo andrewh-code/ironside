@@ -444,7 +444,6 @@ class Share(Base):
 
     def get_trade_datetime(self):
         return self.data_set['LastTradeDateTimeUTC']
-
         
     def get_historical(self, start_date, end_date):
         """
