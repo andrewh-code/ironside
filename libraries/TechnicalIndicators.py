@@ -13,7 +13,7 @@ class TechnicalIndicators(object):
     def hello_world(self):
         print self.company
     
-    def get_historical_opening(company, start_date, end_date):
+    def get_historical_opening(self, company, start_date, end_date):
     """ Description: Retrieves the historical opening prices of the company
         Keyword arguments:
             company    -- company symbol (string) 
@@ -43,7 +43,7 @@ class TechnicalIndicators(object):
 
     return stock_results_dict
 
-def get_historical_closing(company, start_date, end_date):
+def get_historical_closing(self, company, start_date, end_date):
     """ Description: Retrieves the historical closing prices of the company
         Keyword arguments:
             company    -- company symbol (string) 
@@ -165,7 +165,7 @@ def get_historical_closing(company, start_date, end_date):
         
         return out
         
-    def get_200_day_moving_average(company, start_date, end_date):
+    def get_200_day_moving_average(self, company, start_date, end_date):
         """ Description: Retrieves the 200 day moving average of the stock
             Keyword arguments:
                 company     -- company symbole (string)
@@ -207,7 +207,14 @@ def get_historical_closing(company, start_date, end_date):
         
         return out
         
-    def get_accumulation_distribution():
+    def get_accumulation_distribution(self, company):
+        """
+            1. Money flow multiplier = [(close - low) - (high - close)] / (high - low)
+            2. money flow volume = money flow multiplier * volume for the period
+            3. ADL = previous + current period's money flow volume 
+        """
+        stock = Share(company)
+        
         return 0 
     
     def get_aroon():
