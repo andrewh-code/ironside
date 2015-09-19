@@ -13,67 +13,156 @@ class TechnicalIndicators(object):
     def hello_world(self):
         print self.company
     
+    def get_historical_closing(self, company, start_date, end_date):
+        """ Description: Retrieves the historical closing prices of the company
+            Keyword arguments:
+                company    -- company symbol (string) 
+                start date -- (string: YYYY-mm-dd) 
+                end date   -- (string: YYYY-mm-dd)
+            Output: 
+                results    -- dictionary object ['Date': 'closing']
+        """
+        # check to see if arguments put in are not empty
+        if ((company is None) or (len(str(company)) == 0) or 
+            (start_date is None) or (len(str(start_date)) == 0) or 
+            (end_date is None) or (len(str(end_date)) == 0)):
+            print "Error: One of the arguments being passed in is empty. Please check the input again."
+            sys.exit(1);
+        
+        # declare variables/objects
+        stock = Share(company)
+        stock_results_dict = {}
+        
+        
+        historical_info = stock.get_historical(start_date, end_date) 
+        
+        # get the historical openings using date as the key
+        for record in historical_info:
+            for key_date in record:
+                if (key_date == 'Date'):
+                    stock_results_dict[record[key_date]] = record['Close']
+    
+        return stock_results_dict
+    
     def get_historical_opening(self, company, start_date, end_date):
-    """ Description: Retrieves the historical opening prices of the company
-        Keyword arguments:
-            company    -- company symbol (string) 
-            start date -- (string: YYYY-mm-dd) 
-            end date   -- (string: YYYY-mm-dd)
-        Output: 
-            results    -- dictionary object ['Date': 'opening']
-    """
-    # check to see if arguments put in are not empty
-    if ((company is None) or (len(str(company)) == 0) or 
-        (start_date is None) or (len(str(start_date)) == 0) or 
-        (end_date is None) or (len(str(end_date)) == 0)):
-        print "Error: One of the arguments being passed in is empty. Please check the input again."
-        sys.exit(1);
+        """ Description: Retrieves the historical opening prices of the company
+            Keyword arguments:
+                company    -- company symbol (string) 
+                start date -- (string: YYYY-mm-dd) 
+                end date   -- (string: YYYY-mm-dd)
+            Output: 
+                results    -- dictionary object ['Date': 'opening']
+        """
+        # check to see if arguments put in are not empty
+        if ((company is None) or (len(str(company)) == 0) or 
+            (start_date is None) or (len(str(start_date)) == 0) or 
+            (end_date is None) or (len(str(end_date)) == 0)):
+            print "Error: One of the arguments being passed in is empty. Please check the input again."
+            sys.exit(1);
+        
+        # declare variables/objects
+        stock = Share(company)
+        stock_results_dict = {}
+        
+        historical_info = stock.get_historical(start_date, end_date) 
+        
+        # get the historical openings using date as the key
+        for record in historical_info:
+            for key_date in record:
+                if (key_date == 'Date'):
+                    stock_results_dict[record[key_date]] = record['Open']
     
-    # declare variables/objects
-    stock = Share(company)
-    stock_results_dict = {}
+        return stock_results_dict
     
-    historical_info = stock.get_historical(start_date, end_date) 
+    def get_historical_high(self, company, start_date, end_date):
+        """ Description: Retrieves the historical high prices of the company
+            Keyword arguments:
+                company    -- company symbol (string) 
+                start date -- (string: YYYY-mm-dd) 
+                end date   -- (string: YYYY-mm-dd)
+            Output: 
+                results    -- dictionary object ['Date': 'high']
+        """
+        # check to see if arguments put in are not empty
+        if ((company is None) or (len(str(company)) == 0) or 
+            (start_date is None) or (len(str(start_date)) == 0) or 
+            (end_date is None) or (len(str(end_date)) == 0)):
+            print "Error: One of the arguments being passed in is empty. Please check the input again."
+            sys.exit(1);
+        
+        # declare variables/objects
+        stock = Share(company)
+        stock_results_dict = {}
+        
+        historical_info = stock.get_historical(start_date, end_date) 
+        
+        # get the historical openings using date as the key
+        for record in historical_info:
+            for key_date in record:
+                if (key_date == 'Date'):
+                    stock_results_dict[record[key_date]] = record['High']
     
-    # get the historical openings using date as the key
-    for record in historical_info:
-        for key_date in record:
-            if (key_date == 'Date'):
-                stock_results_dict[record[key_date]] = record['Open']
-
-    return stock_results_dict
-
-def get_historical_closing(self, company, start_date, end_date):
-    """ Description: Retrieves the historical closing prices of the company
-        Keyword arguments:
-            company    -- company symbol (string) 
-            start date -- (string: YYYY-mm-dd) 
-            end date   -- (string: YYYY-mm-dd)
-        Output: 
-            results    -- dictionary object ['Date': 'closing']
-    """
-    # check to see if arguments put in are not empty
-    if ((company is None) or (len(str(company)) == 0) or 
-        (start_date is None) or (len(str(start_date)) == 0) or 
-        (end_date is None) or (len(str(end_date)) == 0)):
-        print "Error: One of the arguments being passed in is empty. Please check the input again."
-        sys.exit(1);
+        return stock_results_dict
     
-    # declare variables/objects
-    stock = Share(company)
-    stock_results_dict = {}
+    def get_historical_low(self, company, start_date, end_date):
+        """ Description: Retrieves the historical low prices of the company
+            Keyword arguments:
+                company    -- company symbol (string) 
+                start date -- (string: YYYY-mm-dd) 
+                end date   -- (string: YYYY-mm-dd)
+            Output: 
+                results    -- dictionary object ['Date': 'low']
+        """
+        # check to see if arguments put in are not empty
+        if ((company is None) or (len(str(company)) == 0) or 
+            (start_date is None) or (len(str(start_date)) == 0) or 
+            (end_date is None) or (len(str(end_date)) == 0)):
+            print "Error: One of the arguments being passed in is empty. Please check the input again."
+            sys.exit(1);
+        
+        # declare variables/objects
+        stock = Share(company)
+        stock_results_dict = {}
+        
+        historical_info = stock.get_historical(start_date, end_date) 
+        
+        # get the historical openings using date as the key
+        for record in historical_info:
+            for key_date in record:
+                if (key_date == 'Date'):
+                    stock_results_dict[record[key_date]] = record['Low']
     
+        return stock_results_dict 
     
-    historical_info = stock.get_historical(start_date, end_date) 
+    def get_historical_volume(self, company, start_date, end_date):
+        """ Description: Retrieves the historical volume of the company
+            Keyword arguments:
+                company    -- company symbol (string) 
+                start date -- (string: YYYY-mm-dd) 
+                end date   -- (string: YYYY-mm-dd)
+            Output: 
+                results    -- dictionary object ['Date': 'volume']
+        """
+        # check to see if arguments put in are not empty
+        if ((company is None) or (len(str(company)) == 0) or 
+            (start_date is None) or (len(str(start_date)) == 0) or 
+            (end_date is None) or (len(str(end_date)) == 0)):
+            print "Error: One of the arguments being passed in is empty. Please check the input again."
+            sys.exit(1);
+        
+        # declare variables/objects
+        stock = Share(company)
+        stock_results_dict = {}
+        
+        historical_info = stock.get_historical(start_date, end_date) 
+        
+        # get the historical openings using date as the key
+        for record in historical_info:
+            for key_date in record:
+                if (key_date == 'Date'):
+                    stock_results_dict[record[key_date]] = record['Volume']
     
-    # get the historical openings using date as the key
-    for record in historical_info:
-        for key_date in record:
-            if (key_date == 'Date'):
-                stock_results_dict[record[key_date]] = record['Close']
-
-    return stock_results_dict
-    
+        return stock_results_dict
     
     def moving_average(self, x, n, type='simple'):
         """ Description: Calculate the moving average"
@@ -206,19 +295,28 @@ def get_historical_closing(self, company, start_date, end_date):
                 count = count + 1
         
         return out
-        
-    def get_accumulation_distribution(self, company):
+    
+    # use dispatch
+    def get_accumulation_distribution(self, company, start_date, end_date):
         """
             1. Money flow multiplier = [(close - low) - (high - close)] / (high - low)
             2. money flow volume = money flow multiplier * volume for the period
             3. ADL = previous + current period's money flow volume 
         """
-        stock = Share(company)
         
-        return 0 
+        stock = Share(company)
+        money_flow_multiplier = 0 
+        
+        if ((start_date is None) and (end_date is None)):
+            stock.get_close()
+            stock.get_low()
+            stock.get_high()
+            
+        
+        return company 
     
-    def get_aroon():
-        return 0 
+    def get_aroon(self):
+        return self.symbol 
     
     def get_aroon_oscillator():
         return 0 

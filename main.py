@@ -53,7 +53,10 @@ def main():
     json_file_out.close()
     
     x = TechnicalIndicators(company)
-    x.get_50_day_moving_average(company, start_date, end_date)
+    x.get_accumulation_distribution(company, start_date)
+    
+    stock = Share(company)
+    stock.get_historical(start_date)
     
     #print temp_list
     
