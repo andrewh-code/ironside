@@ -30,8 +30,8 @@ def check_and_del_previous_json(file_name):
 def main():
 
     #variables
-    company     = 'GOOG'
-    start_date  = '2015-01-01'
+    company     = 'BBRY'
+    start_date  = '2010-12-10'
     end_date    = '2015-09-03'
     results_dict = {}
     eopch_date = ''
@@ -53,10 +53,7 @@ def main():
     json_file_out.close()
     
     x = TechnicalIndicators(company)
-    x.get_accumulation_distribution(company, start_date)
-    
-    stock = Share(company)
-    stock.get_historical(start_date)
+    print (x.get_accumulation_distribution(company, start_date))
     
     #print temp_list
     

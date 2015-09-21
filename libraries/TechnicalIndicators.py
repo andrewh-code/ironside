@@ -296,24 +296,47 @@ class TechnicalIndicators(object):
         
         return out
     
-    # use dispatch
-    def get_accumulation_distribution(self, company, start_date, end_date):
-        """
-            1. Money flow multiplier = [(close - low) - (high - close)] / (high - low)
-            2. money flow volume = money flow multiplier * volume for the period
-            3. ADL = previous + current period's money flow volume 
+    # use dispatch concept
+    def get_accumulation_distribution(self, company, start_date, end_date = None):
+        """Description: Volume based indicator designed to measure the cumulative flow of money
+                        into and out of a security. 
+           Keyword arguments:
+                company     -- company symbole (string)
+                start date  -- (string: YYYY-mm-dd) 
+                end date (optional)   -- (string: YYYY-mm-dd) 
         """
         
+        # declare variables
         stock = Share(company)
-        money_flow_multiplier = 0 
+        money_flow_multiplier = 0
+        money_flow_volume = 0 
+        adl = 0  
+        historical_info = {}
+        close = 0 
+        low = 0 
+        high = 0 
+        close = 0 
         
-        if ((start_date is None) and (end_date is None)):
-            stock.get_close()
-            stock.get_low()
-            stock.get_high()
+        if (end_date is None):
+            end_date = start_date
             
+        # retrieve historical info 
+        historical_info = stock.get_historical(start_date, end_date)
         
-        return company 
+        low = float(historical_info[0]['Low'])
+        high = float(historical_info[0]['High'])
+        close = float(historical_info[0]['Close'])
+        volume = int(historical_info[0]['Volume']) 
+               
+        if (high - low == 0):
+            return 0 
+        # calculate the accumulation distribution
+        money_flow_multiplier = ((close - low) - (high-close)/ (high - low))
+        # put in an assert or something 
+        money_flow_volume = money_flow_multiplier * volume 
+        adl += money_flow_volume
+
+        return adl
     
     def get_aroon(self):
         return self.symbol 
