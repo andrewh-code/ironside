@@ -323,26 +323,31 @@ class TechnicalIndicators(object):
             
         # retrieve historical info 
         historical_info = stock.get_historical(start_date, end_date)
-        pprint (historical_info)
         
-        low = float(historical_info[0]['Low'])
-        high = float(historical_info[0]['High'])
-        close = float(historical_info[0]['Close'])
-        volume = int(historical_info[0]['Volume']) 
+        #pprint (historical_info)
         
-        print low, high, close, volume
+        index = len(historical_info) - 1
+        
+        while (index >= 0):
+            low = float(historical_info[index]['Low'])
+            high = float(historical_info[index]['High'])
+            close = float(historical_info[index]['Close'])
+            volume = int(historical_info[index]['Volume']) 
+        
+            
                
-        if (high - low == 0):
-            return 0 
-        # calculate the accumulation distribution
-        money_flow_multiplier = ((close - low) - (high-close)/ (high - low))
-        print money_flow_multiplier 
-        # put in an assert or something 
-        money_flow_volume = money_flow_multiplier * volume
-        print money_flow_volume  
-        adl += money_flow_volume
-        print adl
-
+            if (high - low == 0):
+                return 0 
+            # calculate the accumulation distribution
+            money_flow_multiplier = ((close - low) - (high-close))/ (high - low)
+            # put in an assert or something 
+            money_flow_volume = money_flow_multiplier * volume 
+            
+            print historical_info[index]['Date'], high, low, close, money_flow_multiplier, money_flow_volume/1000
+            
+            adl += money_flow_volume
+            index = index - 1
+            
         return adl
     
     def get_aroon(self):

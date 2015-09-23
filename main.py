@@ -32,7 +32,7 @@ def main():
     #variables
     company     = 'BBRY'
     start_date  = '2010-12-10'
-    end_date    = '2010-12-15'
+    end_date    = '2010-12-30'
     results_dict = {}
     eopch_date = ''
     #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
