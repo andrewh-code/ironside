@@ -313,18 +313,18 @@ class TechnicalIndicators(object):
         money_flow_volume = 0 
         adl = 0  
         historical_info = {}
+        out = {}
         close = 0 
         low = 0 
         high = 0 
-        close = 0 
+        close = 0
+         
         
         if (end_date is None):
             end_date = start_date
             
         # retrieve historical info 
         historical_info = stock.get_historical(start_date, end_date)
-        
-        #pprint (historical_info)
         
         index = len(historical_info) - 1
         
@@ -342,13 +342,14 @@ class TechnicalIndicators(object):
             money_flow_multiplier = ((close - low) - (high-close))/ (high - low)
             # put in an assert or something 
             money_flow_volume = money_flow_multiplier * volume 
-            
-            print historical_info[index]['Date'], high, low, close, money_flow_multiplier, money_flow_volume/1000
-            
+                     
             adl += money_flow_volume
+            print historical_info[index]['Date'], money_flow_multiplier, money_flow_volume/1000, adl
+            out[historical_info[index]['Date']] = adl
+            
             index = index - 1
             
-        return adl
+        return out
     
     def get_aroon(self):
         return self.symbol 
