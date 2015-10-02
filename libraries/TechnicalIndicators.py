@@ -333,9 +333,7 @@ class TechnicalIndicators(object):
             high = float(historical_info[index]['High'])
             close = float(historical_info[index]['Close'])
             volume = int(historical_info[index]['Volume']) 
-        
-            
-               
+   
             if (high - low == 0):
                 return 0 
             # calculate the accumulation distribution
@@ -352,7 +350,13 @@ class TechnicalIndicators(object):
         return out
     
     def get_aroon(self):
-        return self.symbol 
+        """Description: Indicator system that determines whether a stock is trending and how 
+                        strong the trend is
+        """
+        
+        # Aroon Up = ((25 - days since 25 day high)/25) * 100
+        # Aroon down = ((25 - days since 25 day low)/25) * 100
+         
     
     def get_aroon_oscillator():
         return 0 
