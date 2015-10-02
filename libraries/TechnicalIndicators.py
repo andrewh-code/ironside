@@ -349,15 +349,33 @@ class TechnicalIndicators(object):
             
         return out
     
-    def get_aroon(self):
+    def get_aroon(self, company, current_date, aroon_period, flag = 'High'):
         """Description: Indicator system that determines whether a stock is trending and how 
                         strong the trend is
         """
         
         # Aroon Up = ((25 - days since 25 day high)/25) * 100
         # Aroon down = ((25 - days since 25 day low)/25) * 100
-         
-    
+        
+        '''
+        - take the historical data from the past 25 days, in the resultant dictionary, 
+        choose the 'High' entries.
+        - find the maximum of the highs in the 25 day period
+        - claculate the difference between the maximum of the 25 day period and today's date
+            - use the subtract_business_days() function in TimeDates.py custom library I created 
+        - divide the difference in days by 25 and then multiply by 100
+        '''
+        # declare variables
+        stock = Share(company)
+        start_date = current_date - TimeDates.subtract_business_days(date, aroon_period)
+        max_high_date = ''
+        
+        historical_high = self.get_historical_high(company, start_date, current_date)
+        
+        max_high_date = max(historical_high.iteritems(), key=operator.itemgetter(1))[0]
+        
+        
+        
     def get_aroon_oscillator():
         return 0 
         
