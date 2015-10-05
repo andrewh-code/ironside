@@ -52,8 +52,9 @@ def main():
         
     json_file_out.close()
     
+    print (TimeDates.subtract_business_days('2010-12-30', 20))
     x = TechnicalIndicators(company)
-    print (x.get_accumulation_distribution(company, start_date, end_date))
+    print (x.get_aroon(company, start_date, 25, 'High'))
     
     #print temp_list
     

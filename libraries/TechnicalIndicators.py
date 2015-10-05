@@ -367,13 +367,21 @@ class TechnicalIndicators(object):
         '''
         # declare variables
         stock = Share(company)
-        start_date = current_date - TimeDates.subtract_business_days(date, aroon_period)
+        start_date = current_date - TimeDates.subtract_business_days(current_date, aroon_period)
         max_high_date = ''
         
         historical_high = self.get_historical_high(company, start_date, current_date)
         
         max_high_date = max(historical_high.iteritems(), key=operator.itemgetter(1))[0]
+        print max_high_date
         
+        days_since_last_high = diff_between_business_dates(max_high_date, current_date)
+        
+        if (flag == 'High'):
+            aroon_up = ((aroon_period - days_since_last_hight)/aroon_period) * 100
+            return aroon_up
+        else:
+            return "aroon low"
         
         
     def get_aroon_oscillator():

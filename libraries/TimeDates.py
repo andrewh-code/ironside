@@ -42,7 +42,7 @@ class TimeDates:
     
             decrement_day = decrement_day - 1
             
-        return current_date   
+        return current_date.date()   
 
     @staticmethod
     def check_diff_in_days(start_date, end_date, diff):
@@ -72,3 +72,15 @@ class TimeDates:
         else:
             return False
  
+    @staticmethod
+    def diff_between_business_dates(date1, date2):
+        """ Description: 
+        """
+        
+        # validate date1 and date2
+        date1_object = datetime.strptime(date1, '%Y-%m-%d')
+        date2_object = datetime.strptime(date2, '%Y-%m-%d')
+        
+        return (date2_object - date1_object).days
+
+        
