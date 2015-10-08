@@ -366,8 +366,11 @@ class TechnicalIndicators(object):
         - divide the difference in days by 25 and then multiply by 100
         '''
         # declare variables
-        stock = Share(company)
-        start_date = current_date - TimeDates.subtract_business_days(current_date, aroon_period)
+        stock = Share(company) 
+        start_date = TimeDates.subtract_business_days(current_date, aroon_period)
+        
+        #convert start_date back to string
+        start_date = start_date.strftime('%Y-%m-%d')
         max_high_date = ''
         
         historical_high = self.get_historical_high(company, start_date, current_date)
