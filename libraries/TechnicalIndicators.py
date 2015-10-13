@@ -375,13 +375,14 @@ class TechnicalIndicators(object):
         
         historical_high = self.get_historical_high(company, start_date, current_date)
         
-        max_high_date = max(historical_high.iteritems(), key=operator.itemgetter(1))[0]
-        print max_high_date
+        #max_high_date = max(historical_high.iteritems(), key=operator.itemgetter(1))[0]
+        max_high_date = max(historical_high, key=historical_high.get)
+        print "max high is: ", max_high_date
         
-        days_since_last_high = diff_between_business_dates(max_high_date, current_date)
+        days_since_last_high = TimeDates.diff_between_business_dates(max_high_date, current_date)
         
         if (flag == 'High'):
-            aroon_up = ((aroon_period - days_since_last_hight)/aroon_period) * 100
+            aroon_up = ((aroon_period - days_since_last_high)/aroon_period) * 100
             return aroon_up
         else:
             return "aroon low"
