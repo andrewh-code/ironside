@@ -354,17 +354,6 @@ class TechnicalIndicators(object):
                         strong the trend is
         """
         
-        # Aroon Up = ((25 - days since 25 day high)/25) * 100
-        # Aroon down = ((25 - days since 25 day low)/25) * 100
-        
-        '''
-        - take the historical data from the past 25 days, in the resultant dictionary, 
-        choose the 'High' entries.
-        - find the maximum of the highs in the 25 day period
-        - claculate the difference between the maximum of the 25 day period and today's date
-            - use the subtract_business_days() function in TimeDates.py custom library I created 
-        - divide the difference in days by 25 and then multiply by 100
-        '''
         # declare variables
         stock = Share(company) 
         start_date = TimeDates.subtract_business_days(current_date, aroon_period)
@@ -377,16 +366,16 @@ class TechnicalIndicators(object):
             historical_high = self.get_historical_high(company, start_date, current_date)
             max_high_date = max(historical_high, key=historical_high.get)
             days_since_last_high = TimeDates.diff_between_business_dates(max_high_date, current_date)
-            
-            aroon_up = ((aroon_period - days_since_last_high)/aroon_period) * 100
-            
+
+            aroon_up = ((float(aroon_period) - float(days_since_last_high))/float(aroon_period)) * 100.00
+            print "arroon up", aroon_up
             return aroon_up
         else:
             historical_low = self.get_historical_low(company, start_date, current_date)
             least_low_date = low(historical_high, key=historical_low.get)
             days_since_last_low = TimeDates.diff_between_business_dates(least_low_date, current_date)
             
-            aroon_down = ((aroon_period - days_since_last_low)/aroon_period) * 100
+            aroon_down = ((float(aroon_period) - float(days_since_last_low))/float(aroon_period)) * 100.00
             
             return aroon_down
         
