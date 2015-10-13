@@ -373,19 +373,22 @@ class TechnicalIndicators(object):
         start_date = start_date.strftime('%Y-%m-%d')
         max_high_date = ''
         
-        historical_high = self.get_historical_high(company, start_date, current_date)
-        
-        #max_high_date = max(historical_high.iteritems(), key=operator.itemgetter(1))[0]
-        max_high_date = max(historical_high, key=historical_high.get)
-        print "max high is: ", max_high_date
-        
-        days_since_last_high = TimeDates.diff_between_business_dates(max_high_date, current_date)
-        
         if (flag == 'High'):
+            historical_high = self.get_historical_high(company, start_date, current_date)
+            max_high_date = max(historical_high, key=historical_high.get)
+            days_since_last_high = TimeDates.diff_between_business_dates(max_high_date, current_date)
+            
             aroon_up = ((aroon_period - days_since_last_high)/aroon_period) * 100
+            
             return aroon_up
         else:
-            return "aroon low"
+            historical_low = self.get_historical_low(company, start_date, current_date)
+            least_low_date = low(historical_high, key=historical_low.get)
+            days_since_last_low = TimeDates.diff_between_business_dates(least_low_date, current_date)
+            
+            aroon_down = ((aroon_period - days_since_last_low)/aroon_period) * 100
+            
+            return aroon_down
         
         
     def get_aroon_oscillator():
