@@ -381,6 +381,12 @@ class TechnicalIndicators(object):
         
         
     def get_aroon_oscillator():
+        """Description:
+            Aroon Up = 100 x (25 - Days Since 25-day High)/25
+            Aroon Down = 100 x (25 - Days Since 25-day Low)/25
+            Aroon Oscillator = Aroon-Up  -  Aroon-Down
+        """      
+        
         return 0 
         
     def get_volume_weighted_average_price():
