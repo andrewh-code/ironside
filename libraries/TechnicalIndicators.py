@@ -380,14 +380,43 @@ class TechnicalIndicators(object):
             return aroon_down
         
         
-    def get_aroon_oscillator():
+    def get_aroon_oscillator(self, company, current_date, aroon_period):
         """Description:
             Aroon Up = 100 x (25 - Days Since 25-day High)/25
             Aroon Down = 100 x (25 - Days Since 25-day Low)/25
             Aroon Oscillator = Aroon-Up  -  Aroon-Down
         """      
         
-        return 0 
+        stock = Share(company)
+        start_date = TimeDates.subtract_business_days(current_date, aroon_period)
+        
+        # calculate aroon up 
+        historical_high = self.get_historical_high(company, start_date, current_date)
+        max_high_date = max(historical_high, key=historical_high.get)
+        days_since_last_high = TimeDates.diff_between_business_dates(max_high_date, current_date)
+        aroon_up = ((float(aroon_period) - float(days_since_last_high))/float(aroon_period)) * 100.00
+        
+        # calculate aroon Down
+        historical_low = self.get_historical_low(company, start_date, current_date)
+        least_low_date = low(historical_high, key=historical_low.get)
+        days_since_last_low = TimeDates.diff_between_business_dates(least_low_date, current_date)
+        aroon_down = ((float(aroon_period) - float(days_since_last_low))/float(aroon_period)) * 100.00
+        
+        aroon_oscillator = aroon_up - aroon_down
+        
+        return aroon_oscillator
+        
+    def get_average_directional_index():
+        return 0
+        
+    def get_average_true_range():
+        return 0
+    
+    def get_average_true_range():
+        return 0
+ 
+    def get_bandwidth():
+        return 0
         
     def get_volume_weighted_average_price():
         return 0 
