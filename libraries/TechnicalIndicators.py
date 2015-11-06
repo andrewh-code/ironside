@@ -352,6 +352,12 @@ class TechnicalIndicators(object):
     def get_aroon(self, company, current_date, aroon_period, flag = 'High'):
         """Description: Indicator system that determines whether a stock is trending and how 
                         strong the trend is
+           Keyword arguments:
+               company      -- company symbol (string)
+               current_date -- string (YYYY-mm-dd)
+               aroon_period -- default aroon period is usually 25 (int)
+               flag         -- boolean type either 'High' to calculate the aroon high
+                               if not 'High' then automatically calculat ethe aroon low 
         """
         
         # declare variables
@@ -381,15 +387,23 @@ class TechnicalIndicators(object):
         
         
     def get_aroon_oscillator(self, company, current_date, aroon_period):
-        """Description:
-            Aroon Up = 100 x (25 - Days Since 25-day High)/25
-            Aroon Down = 100 x (25 - Days Since 25-day Low)/25
-            Aroon Oscillator = Aroon-Up  -  Aroon-Down
+        """Description: Take the difference between the aroon high and the aroon low
+                        Helps to see which stocks are trending upwards/downwards over a 
+                        certain period
+            Keyword arguments: 
+                company         -- company symbole (string)
+                current_date    -- specified date (string YYYY-mm-dd)
+                aroon_period    -- period before the specified date (int), default to 25    
         """      
         
         stock = Share(company)
         start_date = TimeDates.subtract_business_days(current_date, aroon_period)
         
+        '''
+        Aroon Up = 100 x (25 - Days Since 25-day High)/25
+            Aroon Down = 100 x (25 - Days Since 25-day Low)/25
+            Aroon Oscillator = Aroon-Up  -  Aroon-Down
+        '''
         # calculate aroon up 
         historical_high = self.get_historical_high(company, start_date, current_date)
         max_high_date = max(historical_high, key=historical_high.get)
