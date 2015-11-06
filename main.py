@@ -31,10 +31,12 @@ def main():
 
     #variables
     company     = 'BBRY'
-    start_date  = '2010-12-10'
+    start_date  = '2010-11-01'
     end_date    = '2010-12-30'
     results_dict = {}
     eopch_date = ''
+    indicator = TechnicalIndicators(company)
+    
     #stock       = ystockquote.get_historical_prices(company, start_date, end_date)
     json_file_out = 'output.json' 
     temp_list = []
@@ -44,19 +46,17 @@ def main():
     
     check_and_del_previous_json(json_file_out)
     
-    #results_dict = get_historical_adjusted_closing(company, start_date, end_date)
+    results_dict = indicator.get_historical_closing(company, start_date, end_date)
     
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
-        json.dump(results_dict, json_file_out)
+        json.dump(results_dict, json_file_out, sort_keys=True, indent=4)
         
     json_file_out.close()
+
     
-    print (TimeDates.subtract_business_days('2010-12-30', 20))
-    x = TechnicalIndicators(company)
-    print (x.get_aroon(company, start_date, 25, 'High'))
-    
-    #print temp_list
+    #print json.dump(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
+    print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
     
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
