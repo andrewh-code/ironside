@@ -27,11 +27,22 @@ def check_and_del_previous_json(file_name):
         else:
             print "unable to find file: ", file_name2
 
+def convert_dates_to_epoch(in_dict):
+    
+    #variables
+    out_dict = {}
+    
+    for key in in_dict:
+        new_key = TimeDates.convert_to_epoch(key)
+        out_dict[new_key] = in_dict[key]
+
+    return out_dict
+    
 def main():
 
     #variables
     company     = 'BBRY'
-    start_date  = '2010-11-01'
+    start_date  = '2010-01-01'
     end_date    = '2010-12-30'
     results_dict = {}
     eopch_date = ''
@@ -48,14 +59,14 @@ def main():
     
     results_dict = indicator.get_historical_closing(company, start_date, end_date)
     
+    results_dict = convert_dates_to_epoch(results_dict)
+        
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
         json.dump(results_dict, json_file_out, sort_keys=True, indent=4)
         
     json_file_out.close()
 
-    
-    #print json.dump(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
     print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
     
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
