@@ -56,21 +56,31 @@ def main():
     #print "output results\n", stock_results_dict
     
     check_and_del_previous_json(json_file_out)
+    check_and_del_previous_json('output_keyless_array.json')
     
     results_dict = indicator.get_historical_closing(company, start_date, end_date)
     
     results_dict = convert_dates_to_epoch(results_dict)
     
     temp_list = results_dict.items()
-    
+    temp_list_of_lists = [list(elem) for elem in temp_list]
+    '''
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
         json.dump(results_dict, json_file_out, sort_keys=True, indent=4)
         
     json_file_out.close()
-
-    print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
-    print temp_list
+    '''
+    with open('output_keyless_array.json', 'w') as json_file_out2:
+        json.dump(temp_list_of_lists, json_file_out2, sort_keys=True, ensure_ascii=True)
+        #json_file_out2.write(json.dump(','.join(temp_list).replace('\"',''))    
+    
+    json_file_out2.close()
+    
+    #print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
+    print json.dumps(temp_list, ensure_ascii=True)
+    print temp_list_of_lists
+    #print temp_list
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
 # run main
