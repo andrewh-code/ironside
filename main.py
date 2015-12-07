@@ -38,6 +38,8 @@ def convert_dates_to_epoch(in_dict):
 
     return out_dict
 
+  
+    
 def main():
 
     #variables
@@ -62,25 +64,29 @@ def main():
     
     results_dict = convert_dates_to_epoch(results_dict)
     
-    temp_list = results_dict.items()
-    temp_list_of_lists = [list(elem) for elem in temp_list]
-    '''
+    #temp_list = results_dict.items()
+    
+    for key, value in results_dict.iteritems():
+        temp = [key, float(value)]
+        temp_list.append(temp)
+        
+    
     # output json results to json output file 
     with open('output.json', 'w') as json_file_out:
         json.dump(results_dict, json_file_out, sort_keys=True, indent=4)
-        
     json_file_out.close()
-    '''
-    with open('output_keyless_array.json', 'w') as json_file_out2:
-        json.dump(temp_list_of_lists, json_file_out2, sort_keys=True, ensure_ascii=True)
-        #json_file_out2.write(json.dump(','.join(temp_list).replace('\"',''))    
     
+    
+    # dump to file with an array (keyless, .json file), or list of lists 
+    # TO DO: has to be put in order based on key  
+    with open('output_keyless_array.json', 'w') as json_file_out2:
+        json.dump(temp_list, json_file_out2, sort_keys=True, ensure_ascii=True)
     json_file_out2.close()
     
     #print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
     print json.dumps(temp_list, ensure_ascii=True)
-    print temp_list_of_lists
-    #print temp_list
+    
+    print temp_list
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
 # run main
