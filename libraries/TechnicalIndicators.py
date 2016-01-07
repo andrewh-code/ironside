@@ -440,6 +440,24 @@ class TechnicalIndicators(object):
             current_date -- end date (string YYYY-mm-dd)
     '''
     
+    current_high = ''
+    current_low = ''
+    previous_close = ''
+    result1 = result2 = result3 = 0
+    true_range = 0
+    
+    # method 1: Current high less current low
+    result1 = abs(current_high - current_low)
+    
+    # method 2: current high less the previous close 
+    result2 = abs(current_high - previous_close)
+    
+    # method 3: current low less the previous close
+    result3 = abs(current_low - previous close)
+    
+    true_range = max(result1, result2, result3)
+    
+    return true_range 
     
         
     def get_average_true_range():
