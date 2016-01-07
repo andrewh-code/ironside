@@ -426,6 +426,22 @@ class TechnicalIndicators(object):
     def get_average_true_range():
         return 0
     
+    def get_true_range(self, company, start_date, current_date):
+    '''
+    Description: Wilder started with a concept called True Range (TR), which is defined as the greatest of the following:
+                 Method 1: Current High less the current Low
+                 Method 2: Current High less the previous Close (absolute value)
+                 Method 3: Current Low less the previous Close (absolute value)
+                Absolute values are used to ensure positive numbers. After all, Wilder was interested in measuring the distance between two points, not the direction. 
+                If the current period's high is above the prior period's high and the low is below the prior period's low, then the current period's high-low range will be used as the True Range.
+    Keyword Arguments:
+            company     -- company symbol (string)
+            start_date  -- initial start date (string YYYY-mm-dd)
+            current_date -- end date (string YYYY-mm-dd)
+    '''
+    
+    
+        
     def get_average_true_range():
         return 0
  
