@@ -1,0 +1,7 @@
+1. Install Python 2.7
+2. get yql.py, yahoo_finance_lib.py (put it in the libraries folder)
+3. install NumPy - http://sourceforge.net/projects/numpy/files/NumPy/ (needed the .exe because unable to get the library through whl, .egg, pip, etc installations)
+4. install library simplejson - https://pypi.python.org/pypi/simplejson/
+5. install library pytz https://pypi.python.org/pypi/pytz/#downloads
+
+

@@ -8,8 +8,8 @@ import json
 import time
 
 # include custom python packages/libraries
-import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
-import libraries.yql as yql
+#import ystockquote      # custom library to get yahoo stock quotes/prices (https://pypi.python.org/pypi/ystockquote)
+#import libraries.yql as yql
 from libraries.yahoo_finance_lib import Share
 from libraries.TechnicalIndicators import TechnicalIndicators
 from libraries.TimeDates import TimeDates

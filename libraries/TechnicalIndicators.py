@@ -427,37 +427,37 @@ class TechnicalIndicators(object):
         return 0
     
     def get_true_range(self, company, start_date, current_date):
-    '''
-    Description: Wilder started with a concept called True Range (TR), which is defined as the greatest of the following:
-                 Method 1: Current High less the current Low
-                 Method 2: Current High less the previous Close (absolute value)
-                 Method 3: Current Low less the previous Close (absolute value)
-                Absolute values are used to ensure positive numbers. After all, Wilder was interested in measuring the distance between two points, not the direction. 
-                If the current period's high is above the prior period's high and the low is below the prior period's low, then the current period's high-low range will be used as the True Range.
-    Keyword Arguments:
-            company     -- company symbol (string)
-            start_date  -- initial start date (string YYYY-mm-dd)
-            current_date -- end date (string YYYY-mm-dd)
-    '''
+        '''
+        Description: Wilder started with a concept called True Range (TR), which is defined as the greatest of the following:
+                    Method 1: Current High less the current Low
+                    Method 2: Current High less the previous Close (absolute value)
+                    Method 3: Current Low less the previous Close (absolute value)
+                    Absolute values are used to ensure positive numbers. After all, Wilder was interested in measuring the distance between two points, not the direction. 
+                    If the current period's high is above the prior period's high and the low is below the prior period's low, then the current period's high-low range will be used as the True Range.
+        Keyword Arguments:
+                company     -- company symbol (string)
+                start_date  -- initial start date (string YYYY-mm-dd)
+                current_date -- end date (string YYYY-mm-dd)
+        '''
     
-    current_high = ''
-    current_low = ''
-    previous_close = ''
-    result1 = result2 = result3 = 0
-    true_range = 0
+        current_high = ''
+        current_low = ''
+        previous_close = ''
+        result1 = result2 = result3 = 0
+        true_range = 0
+        
+        # method 1: Current high less current low
+        result1 = abs(current_high - current_low)
+        
+        # method 2: current high less the previous close 
+        result2 = abs(current_high - previous_close)
+        
+        # method 3: current low less the previous close
+        result3 = abs(current_low - previous_close)
+        
+        true_range = max(result1, result2, result3)
     
-    # method 1: Current high less current low
-    result1 = abs(current_high - current_low)
-    
-    # method 2: current high less the previous close 
-    result2 = abs(current_high - previous_close)
-    
-    # method 3: current low less the previous close
-    result3 = abs(current_low - previous close)
-    
-    true_range = max(result1, result2, result3)
-    
-    return true_range 
+        return true_range 
     
         
     def get_average_true_range():
