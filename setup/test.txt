@@ -1,3 +1,5 @@
 GG another recession.
 test
 hello
+wrong e-mail used for commit:
+https://help.github.com/articles/setting-your-email-in-git/
