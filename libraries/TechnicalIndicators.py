@@ -423,8 +423,17 @@ class TechnicalIndicators(object):
     def get_average_directional_index():
         return 0
         
-    def get_average_true_range():
-        return 0
+    def get_average_true_range(company, start_date, current_date):
+        
+        number_days = TimeDates.diff_between_business_dates(start_date, curent_date)
+        
+        while (start_date < current_date):
+            sum_true_range += self.get_true_range(company, start_date, current_date)
+            start_date += 1
+            
+            avg_true_range = sum_true_range/number_days
+        
+        return avg_true_range  
     
     def get_true_range(self, company, start_date, current_date):
         '''
@@ -439,7 +448,13 @@ class TechnicalIndicators(object):
                 start_date  -- initial start date (string YYYY-mm-dd)
                 current_date -- end date (string YYYY-mm-dd)
         '''
-    
+        
+        """ basic algorithm:
+        current_high = stock.
+        """
+        stock = Share(company)
+        number_days = TimeDates.diff_between_business_dates(start_date, curent_date)
+        
         current_high = ''
         current_low = ''
         previous_close = ''
@@ -456,7 +471,11 @@ class TechnicalIndicators(object):
         result3 = abs(current_low - previous_close)
         
         true_range = max(result1, result2, result3)
+        
+        sum_true_range += true_range
+        
     
+        
         return true_range 
     
         
