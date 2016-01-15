@@ -89,6 +89,9 @@ def main():
     print temp_list
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
+    print indicator.get_true_range(company, start_date)
+    
+    
 # run main
 if __name__ == "__main__":
     main()

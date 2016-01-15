@@ -443,20 +443,21 @@ class TechnicalIndicators(object):
                     Method 3: Current Low less the previous Close (absolute value)
                     Absolute values are used to ensure positive numbers. After all, Wilder was interested in measuring the distance between two points, not the direction. 
                     If the current period's high is above the prior period's high and the low is below the prior period's low, then the current period's high-low range will be used as the True Range.
+                    
+                    When put it in today's date, Yahoo Finance will not return the information needed because it gathers the information at the end of the day. 
+                    If put in today's date, have to subtract by one to get the information. 
         Keyword Arguments:
                 company     -- company symbol (string)
                 start_date  -- initial start date (string YYYY-mm-dd)
                 current_date -- end date (string YYYY-mm-dd)
         '''
         
-        """ basic algorithm:
-        current_high = stock.
-        """
         stock = Share(company)
+        historical_info = stock.get_historical(date, date) 
         
-        current_high = stock.get_high(date)
-        current_low = stock.get_low(date)
-        previous_close = stock.get_previous_close(date)     # fix this part
+        current_high = 10
+        current_low = 6
+        previous_close = 3
         result1 = result2 = result3 = 0
         true_range = 0
         
