@@ -435,7 +435,7 @@ class TechnicalIndicators(object):
         
         return avg_true_range  
     
-    def get_true_range(self, company, start_date, current_date):
+    def get_true_range(self, company, date):
         '''
         Description: Wilder started with a concept called True Range (TR), which is defined as the greatest of the following:
                     Method 1: Current High less the current Low
@@ -453,11 +453,10 @@ class TechnicalIndicators(object):
         current_high = stock.
         """
         stock = Share(company)
-        number_days = TimeDates.diff_between_business_dates(start_date, curent_date)
         
-        current_high = ''
-        current_low = ''
-        previous_close = ''
+        current_high = stock.get_high(date)
+        current_low = stock.get_low(date)
+        previous_close = stock.get_previous_close(date)     # fix this part
         result1 = result2 = result3 = 0
         true_range = 0
         
@@ -471,10 +470,6 @@ class TechnicalIndicators(object):
         result3 = abs(current_low - previous_close)
         
         true_range = max(result1, result2, result3)
-        
-        sum_true_range += true_range
-        
-    
         
         return true_range 
     
