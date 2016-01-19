@@ -84,9 +84,9 @@ def main():
     json_file_out2.close()
     
     #print json.dumps(results_dict, sort_keys=True, indent=4, separators=(',', ': '))
-    print json.dumps(temp_list, ensure_ascii=True)
+    #print json.dumps(temp_list, ensure_ascii=True)
     
-    print temp_list
+    #print temp_list
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
     print indicator.get_true_range(company, start_date)
