@@ -31,6 +31,7 @@ class TimeDates:
     
         decrement_day = num_days 
         current_date = datetime.strptime(start_date, '%Y-%m-%d') 
+        print ("subtract_business_days: current_date = ", current_date)
         
         #print current_date
         while (decrement_day > 0):

@@ -44,7 +44,7 @@ def main():
 
     #variables
     company     = 'BBRY'
-    start_date  = '2010-01-01'
+    start_date  = '2010-01-04'
     end_date    = '2010-12-30'
     results_dict = {}
     eopch_date = ''
@@ -89,7 +89,7 @@ def main():
     #print temp_list
     #print subtract_business_days(start_date, 50).strftime("%Y-%m-%d")
     
-    print indicator.get_true_range(company, start_date)
+    print indicator.get_true_range(company, '2016-01-20')
     
     
 # run main

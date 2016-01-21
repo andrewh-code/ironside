@@ -451,16 +451,21 @@ class TechnicalIndicators(object):
                 start_date  -- initial start date (string YYYY-mm-dd)
                 current_date -- end date (string YYYY-mm-dd)
         '''
+        print date
+        start_date = TimeDates.subtract_business_days(date, 1)
+        print start_date.strftime('%Y-%d-%y')
+        
         stock = Share(company)
         # implement try catch statement in historical info
         # if historical info gives error, that means it's possible that the date given is today's date
         # which means that the stock market might still be going on and you dont' have a final value for 
         # the historical values
         # in such case, subtract one day from today's date so you start from yesterday's final values 
-        historical_info = stock.get_historical(date, date) 
-        print historical_info
         
-        current_high = 10
+        historical_info = stock.get_historical(start_date, date) 
+        
+        print historical_info
+        current_high = 7
         current_low = 6
         previous_close = 3
         result1 = result2 = result3 = 0
