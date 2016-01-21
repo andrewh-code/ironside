@@ -450,10 +450,10 @@ class TechnicalIndicators(object):
                 company     -- company symbol (string)
                 start_date  -- initial start date (string YYYY-mm-dd)
                 current_date -- end date (string YYYY-mm-dd)
+        Output:
+                true_range - float
         '''
-        print date
         start_date = TimeDates.subtract_business_days(date, 1)
-        print start_date.strftime('%Y-%d-%y')
         
         stock = Share(company)
         # implement try catch statement in historical info
@@ -462,23 +462,26 @@ class TechnicalIndicators(object):
         # the historical values
         # in such case, subtract one day from today's date so you start from yesterday's final values 
         
-        historical_info = stock.get_historical(start_date, date) 
+        historical_info = stock.get_historical(start_date.strftime('%Y-%m-%d'), date) 
         
         print historical_info
-        current_high = 7
-        current_low = 6
-        previous_close = 3
+        print historical_info[0]['High']
+        print historical_info[0]['Low']
+        print historical_info[1]['Close'] 
+        current_high = historical_info[0]['High']
+        current_low = historical_info[0]['Low']
+        previous_close = historical_info[1]['Close'] 
         result1 = result2 = result3 = 0
         true_range = 0
         
         # method 1: Current high less current low
-        result1 = abs(current_high - current_low)
+        result1 = abs(float(current_high) - float(current_low))
         
         # method 2: current high less the previous close 
-        result2 = abs(current_high - previous_close)
+        result2 = abs(float(current_high) - float(previous_close))
         
         # method 3: current low less the previous close
-        result3 = abs(current_low - previous_close)
+        result3 = abs(float(current_low) - float(previous_close))
         
         true_range = max(result1, result2, result3)
         

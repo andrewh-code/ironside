@@ -17,7 +17,8 @@ list_dates = ['2016-01-01',
               '2016-01-07',
               '2016-01-08',
               '2016-01-09',
-              '2016-01-10']
+              '2016-01-10',
+              '2016-01-20']
 
 for today in list_dates:
     yesterday = TimeDates.subtract_business_days(today, 1)
