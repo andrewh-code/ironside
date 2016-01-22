@@ -91,7 +91,6 @@ class TimeDates:
         #print datetime.strptime(date, '%Y-%m-%d')
         #print  time.strftime('%Y-%m-%d')
         
-        #if (datetime.strptime(date, '%Y-%m-%d') >= time.strptime('%Y-%m-%d %H:%M:%S')):
         if (date >= time.strftime('%Y-%m-%d')):
             return True  
         
