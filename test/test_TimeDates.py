@@ -8,6 +8,7 @@ from TimeDates import TimeDates
 
 #test subtract_business_days method 
 
+# global variable
 list_dates = ['2016-01-01',
               '2016-01-02',
               '2016-01-03',
@@ -18,8 +19,18 @@ list_dates = ['2016-01-01',
               '2016-01-08',
               '2016-01-09',
               '2016-01-10',
-              '2016-01-20']
+              '2016-01-20',
+              '2016-01-25',
+              '2016-01-30',]
 
 for today in list_dates:
     yesterday = TimeDates.subtract_business_days(today, 1)
-    print yesterday
+    #print yesterday
+    
+
+# test check_date_against_today() method 
+#======================================
+for today in list_dates:
+    print TimeDates.check_date_against_today(today)
+    
+

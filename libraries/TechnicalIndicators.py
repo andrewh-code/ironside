@@ -441,6 +441,11 @@ class TechnicalIndicators(object):
         Output:
                 true_range - float
         '''
+        # return error if the date is greater than or equal to today's date
+        if (TimeDates.check_date_against_today(date) == True):
+            print "please input a date in the past"
+            return 1
+         
         start_date = TimeDates.subtract_business_days(date, 1)
         
         stock = Share(company)
@@ -449,8 +454,13 @@ class TechnicalIndicators(object):
         # which means that the stock market might still be going on and you dont' have a final value for 
         # the historical values
         # in such case, subtract one day from today's date so you start from yesterday's final values 
-        
-        historical_info = stock.get_historical(start_date.strftime('%Y-%m-%d'), date) 
+        historical_info = stock.get_historical(start_date.strftime('%Y-%m-%d'), date)
+        if (len(historical_info) < 2):
+            date = TimeDates.subtract_business_days(date, 1)
+            start_date = TimeDates.subtract_business_days(date, 2)
+            historical_info = stock.get_historical(start_date.strftime('%Y-%m-%d'), date.strftime('%Y-%m-%d'))
+            
+            
         
         print historical_info
         print historical_info[0]['High']

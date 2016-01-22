@@ -84,4 +84,15 @@ class TimeDates:
         
         return (date2_object - date1_object).days
 
+    @staticmethod
+    def check_date_against_today(date):
+        """ Description: simple check to see if the date provided in the argument is greater than (in the future) than today's date 
+        """ 
+        #print datetime.strptime(date, '%Y-%m-%d')
+        #print  time.strftime('%Y-%m-%d')
         
+        #if (datetime.strptime(date, '%Y-%m-%d') >= time.strptime('%Y-%m-%d %H:%M:%S')):
+        if (date >= time.strftime('%Y-%m-%d')):
+            return True  
+        
+        return False
