@@ -422,18 +422,6 @@ class TechnicalIndicators(object):
         
     def get_average_directional_index():
         return 0
-        
-    def get_average_true_range(company, start_date, current_date):
-        
-        number_days = TimeDates.diff_between_business_dates(start_date, curent_date)
-        
-        while (start_date < current_date):
-            sum_true_range += self.get_true_range(company, start_date, current_date)
-            start_date += 1
-            
-            avg_true_range = sum_true_range/number_days
-        
-        return avg_true_range  
     
     def get_true_range(self, company, date):
         '''
@@ -488,7 +476,16 @@ class TechnicalIndicators(object):
         return true_range 
     
         
-    def get_average_true_range():
+    def get_average_true_range(self, company, start_date, current_date):
+    
+        number_days = TimeDates.diff_between_business_dates(start_date, curent_date)
+        
+        while (start_date < current_date):
+            sum_true_range += self.get_true_range(company, start_date, current_date)
+            start_date += 1
+            
+            avg_true_range = sum_true_range/number_days
+        
         return 0
  
     def get_bandwidth():
