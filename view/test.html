@@ -12,8 +12,9 @@ ${demo.css}
 		<script type="text/javascript">
 $(function () {
     
+    var files = new Array('bbry.json', 'apple_stock.json');
     //$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
-    $.getJSON('bbry.json', function (data) {  
+    $.getJSON('msft.json', function (data) {  
         console.log(data);
         // Create the chart
         $('#container').highcharts('StockChart', {
