@@ -2,7 +2,7 @@
 import time
 from datetime import datetime, timedelta, date
 import sys
-sys.path.append('C:\Users\I849467\Documents\GitHub\ironside\libraries')
+sys.path.append('..\libraries')
 from TimeDates import TimeDates
 
 

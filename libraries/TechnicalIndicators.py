@@ -455,6 +455,9 @@ class TechnicalIndicators(object):
         # the historical values
         # in such case, subtract one day from today's date so you start from yesterday's final values 
         historical_info = stock.get_historical(start_date.strftime('%Y-%m-%d'), date)
+        if (len(historical_info) < 2):
+            print "Please input a business working day. You might have inputted a date that falls on a weekend or holiday"
+            return 1
         
         print historical_info
         print historical_info[0]['High']
