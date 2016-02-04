@@ -7,16 +7,19 @@
 
 <body>
     <p>Input stock name</p>
-    <input id = "stock_input">
-    <button type = "button" onclick="jsFunction()">Submit</button>
-    </input>
+    <input id = "stock_input"></input>
     <br>
     <br>
     <form>
-        <input type="checkbox" name="50ma" value="50ma">50 day moving average<br>
-        <input type="checkbox" name="200ma" value="200ma">200 day moving average<br>
+        <div id="technicalIndicators">
+            <label><input type="checkbox" name="50ma" value="50ma" onclick="";>50 day moving average</label><br>
+            <label><input type="checkbox" name="200ma" value="200ma" onclick="";>200 day moving average</label><br>
+            <label><input type="checkbox" name="historicalClosing" value="historicalClosing">Historical Closing</label><br>
+        </div>
     </form>
+    <button type = "button" onclick="jsFunction()">Submit</button>
     <p id = "output"></p>
+    <p id = "outputTechnicalIndicator"></p>
 </body>
 
 </html>
