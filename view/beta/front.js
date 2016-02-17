@@ -75,9 +75,7 @@ function test () {
     });
     
     
-   $('#container').highcharts().show();
-   
-    
+   //$('#container').highcharts().show();
 };
 
 //http://jsfiddle.net/lorwynz_11/sSLnn/3/
