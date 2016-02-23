@@ -30,7 +30,7 @@ function jsFunction(){
     
     document.getElementById("output").innerHTML = txt_input;
     document.getElementById("outputTechnicalIndicator").innerHTML = cb_200day;
-    document.getElementByID("js_chart").innerHTML = test();
+    document.getElementById("js_chart").innerHTML = test();
 }
 
 function checkTechnicalIndicators(input, indicator){
